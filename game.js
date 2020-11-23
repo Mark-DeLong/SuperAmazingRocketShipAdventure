@@ -1,5 +1,6 @@
 // import GameWin from "./gameWin";
 
+
 var config = {
   type: Phaser.AUTO,
   width: 1900,
@@ -28,8 +29,7 @@ var player; //Added player
 var cursors; //Movement
 var trash; // Added trash cans
 var gas; // Gas cans
-var score; //Score
-var scoreText; //Score Text
+var score = 0; //Score
 var map;
 var sx = 0;
 var mapWidth = 51;
@@ -59,14 +59,13 @@ function create() {
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
   //Gas Cans//
-
   gas = this.physics.add.group({
-    key: "gas",
-    repeat: 11,
-    setXY: { x: 30, y: 0, stepX: 70 },
-  });
-  this.physics.add.collider(gas, player);
-  // this.physics.add.overlap(player, gas, collectStar, null, this);
+      key: "gas",
+      repeat: 10,
+      setXY: { x: 30, y: 0, stepX: 70 },
+    });
+  this.physics.add.collider(player, gas, trash);
+  //this.physics.add.overlap(player, gas, collectStar, null, this);
 
   //trash Cans//
   //This makes copies
@@ -89,7 +88,7 @@ function create() {
   });
 
   //Score//
-  scoreText = this.add.text(16, 16, "score: 0", {
+  scoreText = this.add.text(16, 16, "score: " + score, {
     fontSize: "32px",
     fill: "#000",
   });
@@ -179,7 +178,7 @@ function update() {
 
 //trash//
 function hitTrash(player, trash) {
-  this.physics.pause();
+  
 
   // trash.setTexture("explosion");
   // trash.play("explode");
@@ -187,7 +186,11 @@ function hitTrash(player, trash) {
   // explosion.anchor.setTo(0.5, 0.5);
   //explosion.animation.play("explosion");
   player.setTint(0xff0000);
-  gameOver = true;
+  score -= 10
+  if (score < 0) {
+    this.physics.pause();
+    gameOver = true;
+  }
 }
 
 //Gas Cans Collection//
