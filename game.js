@@ -29,7 +29,7 @@ var player; //Added player
 var cursors; //Movement
 var trash; // Added trash cans
 var gas; // Gas cans
-var score = 0; //Score
+var scoreText = 0; //Score
 var map;
 var sx = 0;
 var mapWidth = 51;
@@ -88,7 +88,7 @@ function create() {
   });
 
   //Score//
-  scoreText = this.add.text(16, 16, "score: " + score, {
+  scoreText = this.add.text(16, 16, "score: " + scoreText, {
     fontSize: "32px",
     fill: "#000",
   });
@@ -171,8 +171,8 @@ function update() {
     player.anims.play("turn");
   }
 
-  if (cursors.up.isDown && player.body.touching.down) {
-    player.setVelocityY(-330);
+  if (cursors.up.isDown) {
+    player.setVelocityY(-100);
   }
 }
 
@@ -186,8 +186,8 @@ function hitTrash(player, trash) {
   // explosion.anchor.setTo(0.5, 0.5);
   //explosion.animation.play("explosion");
   player.setTint(0xff0000);
-  score -= 10
-  if (score < 0) {
+  scoreText -= 10
+  if (scoreText < 0) {
     this.physics.pause();
     gameOver = true;
   }
@@ -198,8 +198,8 @@ function collectGas(player, gas) {
   gas.destroy();
   gas.disableBody(true, true);
   //  Add and update the score
-  score += 10;
-  scoreText.setText("Score: " + score);
+  scoreText += 10;
+  scoreText = this.add.text("Score: " + scoreText);
 }
 
 //Any speed as long as 16 evenly divides by it
