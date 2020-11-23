@@ -172,7 +172,10 @@ function update() {
   }
 
   if (cursors.up.isDown) {
-    player.setVelocityY(-100);
+    player.setVelocityY(-100); //player moves up at rate of 100
+  }
+  if (cursors.up.isUp) {
+    player.setVelocityY(250); //player falls a lot faster than he goes up if you stop pressing the up key
   }
 }
 
