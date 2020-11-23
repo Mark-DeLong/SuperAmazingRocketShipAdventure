@@ -61,7 +61,7 @@ function create() {
   //Gas Cans//
   gas = this.physics.add.group({
       key: "gas",
-      repeat: 10,
+      repeat: 20,
       setXY: { x: 30, y: 0, stepX: 70 },
     });
   this.physics.add.collider(player, gas, trash);
@@ -71,8 +71,8 @@ function create() {
   //This makes copies
   trash = this.physics.add.group({
     key: "trash",
-    repeat: 10,
-    setXY: { x: 12, y: 0, stepX: 70 },
+    repeat: 20,
+    setXY: { x: 12, y: 100, stepX: 70 }, //trash is offset from gas so playe has to weave through it
   });
 
   // this.physics.add.collider(trash, player); // can be modified to collect gas
